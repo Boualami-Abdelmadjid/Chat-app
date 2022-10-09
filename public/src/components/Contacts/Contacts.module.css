@@ -1,17 +1,22 @@
 .container {
+  background: #555;
+  height: 80vh;
+  position: relative;
+}
+.contacts {
+  height: 82%;
   display: grid;
   grid-auto-flow: row;
   gap: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
-  padding-top: 3rem;
+  padding-top: 1rem;
   flex-shrink: 0;
   padding-inline: 0.5rem;
-  background: #555;
 }
 .contact {
   height: 4.5rem;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   background-color: grey;
   display: grid;
   grid-auto-flow: column;
@@ -22,6 +27,7 @@
   cursor: pointer;
   transition: all 0.3s ease-in;
   border-radius: 8px;
+  overflow: hidden;
 }
 .contact p {
   font-size: 1.2rem;
@@ -35,4 +41,28 @@
 }
 .selected {
   background-color: rgb(71, 71, 71) !important;
+}
+
+.currenUser {
+  height: 15%;
+}
+.currentUser {
+  display: grid;
+  grid-auto-flow: column;
+  position: absolute;
+  bottom: 1rem;
+  margin: 1rem;
+  width: 100%;
+  grid-template-columns: 4rem auto;
+}
+.currentUser img {
+  height: 4rem;
+  width: 4rem;
+}
+.currentUser p {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: whitesmoke;
+  text-transform: capitalize;
 }

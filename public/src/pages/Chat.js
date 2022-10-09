@@ -8,24 +8,27 @@ import Contacts from "../components/Contacts/Contacts";
 export default function Chat() {
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
     if (!localStorage.getItem("chat-user")) navigate("/login");
     else if (!JSON.parse(localStorage.getItem("chat-user")).isAvatarImageSet)
       navigate("/setAvatar");
     else {
-      async function getContactsfunctin() {
-        const id = JSON.parse(localStorage.getItem("chat-user"))._id;
+      async function getContactsfunction() {
+        const user = JSON.parse(localStorage.getItem("chat-user"));
+        setCurrentUser(user);
+        const id = user._id;
         const { data } = await axios.get(`${getContacts}/${id}`);
         setContacts(data);
       }
-      getContactsfunctin();
+      getContactsfunction();
     }
   }, [navigate]);
   return (
     <div className={styles.container}>
       <div className={styles.contacts}>
-        <Contacts contacts={contacts} />
+        <Contacts contacts={contacts} currentUser={currentUser} />
       </div>
     </div>
   );
