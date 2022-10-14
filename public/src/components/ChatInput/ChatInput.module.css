@@ -1,0 +1,33 @@
+.chatInput {
+  grid-row: 3;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 7% 90%;
+  height: 100%;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+}
+.emoji {
+  font-size: 2rem;
+  margin: 0;
+  cursor: pointer;
+  margin-top: -0.4rem;
+}
+.chatInput input {
+  margin-inline-end: 1rem;
+  background-color: grey;
+  border-radius: 10px;
+  width: calc(100% - 2rem);
+  height: 3rem;
+  box-sizing: border-box;
+  padding-inline: 1rem;
+  font-size: 1.2rem;
+  border: transparent;
+}
+.chatInput input:focus {
+  outline: transparent;
+}
+

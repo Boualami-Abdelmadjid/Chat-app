@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/store";
 import styles from "./Contacts.module.css";
+
 export default function Contacts({ contacts, currentUser }) {
-  const [selectedContact, setSelectedContact] = useState(undefined);
+  const selectedContact = useSelector((state) => state.selectedUser);
+  const dispatch = useDispatch();
+  console.log(selectedContact);
   return (
     <div className={styles.container}>
       <div className={styles.contacts}>
         {contacts.map((contact, index) => (
           <div
             className={`${styles.contact} ${
-              selectedContact === index ? styles.selected : ""
+              selectedContact === contact ? styles.selected : ""
             }`}
             key={index}
-            onClick={() => setSelectedContact(index)}
+            onClick={() => dispatch(userActions.changeSelecteduser(contact))}
           >
             <img
               src={`data:image/svg+xml;base64,${contact.avatarImage}`}
