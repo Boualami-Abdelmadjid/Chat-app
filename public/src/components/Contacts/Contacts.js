@@ -5,6 +5,7 @@ import styles from "./Contacts.module.css";
 
 export default function Contacts({ contacts, currentUser }) {
   const selectedContact = useSelector((state) => state.selectedUser);
+  // const currentUser = useSelector((state) => state.connectedUser);
   const dispatch = useDispatch();
   return (
     <div className={styles.container}>

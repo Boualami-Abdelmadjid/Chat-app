@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../store/store";
 import axios from "axios";
 import { getAllMessages } from "../../utils/APIROutes";
+import styles from "./MessageContainer.module.css";
 
 export default function MessageContainer() {
   const dispatch = useDispatch();
@@ -23,9 +24,11 @@ export default function MessageContainer() {
     }
   }, [dispatch, connectedUser, selectedUser._id]);
   return (
-    <div>
-      {messages.map((msg) => (
-        <p> {msg.message} </p>
+    <div className={styles.container}>
+      {messages.map((msg, index) => (
+        <p key={index} className={msg.fromSelf ? styles.self : styles.received}>
+          {msg.message}
+        </p>
       ))}
     </div>
   );

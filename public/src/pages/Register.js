@@ -23,8 +23,7 @@ export default function Register() {
         email,
         password1,
       });
-      console.log("here");
-      console.log(data);
+
       if (data.status === false) console.log(data.msg);
       if (data.status === true) {
         localStorage.setItem("chat-user", JSON.stringify(data.user));
