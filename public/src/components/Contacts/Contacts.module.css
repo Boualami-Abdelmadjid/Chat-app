@@ -1,7 +1,8 @@
 .container {
   background: #555;
-  height: 80vh;
+  height: 100%;
   position: relative;
+  overflow: hidden;
 }
 .contacts {
   max-height: 82%;
@@ -13,6 +14,12 @@
   padding-top: 1rem;
   flex-shrink: 0;
   padding-inline: 0.5rem;
+}
+@media screen and (max-width: 500px) {
+  .contacts p {
+    display: none;
+  }
+  
 }
 .contact {
   height: 4.5rem;
@@ -43,17 +50,15 @@
   background-color: rgb(71, 71, 71) !important;
 }
 
-.currenUser {
-  height: 15%;
-}
 .currentUser {
   display: grid;
   grid-auto-flow: column;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0;
   margin: 1rem;
   width: 100%;
   grid-template-columns: 4rem auto;
+  overflow: hidden;
 }
 .currentUser img {
   height: 4rem;
@@ -65,4 +70,9 @@
   font-weight: 600;
   color: whitesmoke;
   text-transform: capitalize;
+}
+@media screen and (max-width: 500px) {
+  .currentUser p {
+    display: none;
+  }
 }

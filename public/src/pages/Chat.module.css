@@ -2,7 +2,6 @@
   height: 100vh;
   width: 100vw;
   margin: 0;
-  /* padding: 0; */
 }
 .contacts {
   position: absolute;
@@ -15,4 +14,13 @@
   grid-auto-flow: column;
   grid-template-columns: 25% 75%;
   grid-template-rows: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  .contacts {
+    top: 2%;
+    left: 2%;
+    height: 96vh;
+    width: 96vw;
+  }
 }

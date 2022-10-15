@@ -10,8 +10,13 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
+app.use("/static", express.static(__dirname + "/build/static"));
+
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
+app.get("/", function (req, res) {
+  res.sendFile("/build/index.html", { root: __dirname });
+});
 
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -23,7 +28,7 @@ mongoose
   })
   .catch((err) => console.log(err.message));
 
-const server = app.listen(process.env.PORT, () => {
+const server = app.listen(5000, "0.0.0.0", () => {
   console.log("Server listenning on port 5000");
 });
 const io = socket(server, {
