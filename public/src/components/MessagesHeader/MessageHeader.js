@@ -3,7 +3,7 @@ import styles from "./MessageHeader.module.css";
 import { useSelector } from "react-redux";
 
 export default function MessageHeader() {
-  const selectedUser = useSelector((state) => state.selectedUser);
+  const selectedUser = useSelector((state) => state.user.selectedUser);
   return (
     <div className={styles.header}>
       <img

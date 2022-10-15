@@ -7,13 +7,13 @@ import { userActions } from "../../store/store";
 import axios from "axios";
 import { AddMessage } from "../../utils/APIROutes";
 
-export default function ChatInput() {
+export default function ChatInput({ socket }) {
   const [message, setMessage] = useState("");
   const inputRef = useRef();
   const dispatch = useDispatch();
-  const selectedUser = useSelector((state) => state.selectedUser);
-  const connectedUser = useSelector((state) => state.connectedUser);
-  const showEmoji = useSelector((state) => state.isEmojiPickerShown);
+  const selectedUser = useSelector((state) => state.user.selectedUser);
+  const connectedUser = useSelector((state) => state.user.connectedUser);
+  const showEmoji = useSelector((state) => state.user.isEmojiPickerShown);
   const emojiClickHandler = (emoji, event) => {
     setMessage((prev) => prev + emoji.emoji);
   };
@@ -25,7 +25,14 @@ export default function ChatInput() {
     });
     setMessage("");
     inputRef.current.focus();
+    socket.emit("send-msg", {
+      to: selectedUser._id,
+      from: connectedUser._id,
+      message: message,
+    });
+    dispatch(userActions.addMessages({ fromSelf: true, message: message }));
   };
+
   return (
     <div className={styles.chatInput}>
       <p

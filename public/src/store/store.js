@@ -26,11 +26,14 @@ const userSlice = createSlice({
     updateMessages(state, actions) {
       state.messages = actions.payload;
     },
+    addMessages(state, actions) {
+      state.messages = [...state.messages, actions.payload];
+    },
   },
 });
 
 const store = configureStore({
-  reducer: userSlice.reducer,
+  reducer: { user: userSlice.reducer },
 });
 export default store;
 export const userActions = userSlice.actions;

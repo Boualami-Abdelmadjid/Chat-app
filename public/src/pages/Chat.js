@@ -4,18 +4,22 @@ import { userActions } from "../store/store";
 import { useNavigate } from "react-router-dom";
 import styles from "./Chat.module.css";
 import axios from "axios";
-import { getContacts } from "../utils/APIROutes";
+import { getContacts, host } from "../utils/APIROutes";
 import Contacts from "../components/Contacts/Contacts";
 import MessageHeader from "../components/MessagesHeader/MessageHeader";
 import ChatInput from "../components/ChatInput/ChatInput";
 import MessageContainer from "../components/MessageContainer/MessageContainer";
+import io from "socket.io-client";
+const socket = io(host);
 
 export default function Chat() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [contacts, setContacts] = useState([]);
-  const currentUser = useSelector((state) => state.connectedUser);
-  const isEmojiPickerShown = useSelector((state) => state.isEmojiPickerShown);
+  const currentUser = useSelector((state) => state.user.connectedUser);
+  const isEmojiPickerShown = useSelector(
+    (state) => state.user.isEmojiPickerShown
+  );
 
   useEffect(() => {
     document.addEventListener("click", (e) => {
@@ -38,14 +42,20 @@ export default function Chat() {
       getContactsfunction();
     }
   }, [navigate, dispatch, isEmojiPickerShown]);
+
+  useEffect(() => {
+    if (currentUser) {
+      socket.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
   return (
     <div className={styles.container}>
       <div className={styles.contacts}>
         <Contacts contacts={contacts} currentUser={currentUser} />
         <div className="messagesContainer">
           <MessageHeader />
-          <MessageContainer />
-          <ChatInput />
+          <MessageContainer socket={socket} />
+          <ChatInput socket={socket} />
         </div>
       </div>
     </div>
