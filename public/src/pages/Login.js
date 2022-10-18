@@ -5,6 +5,9 @@ import { useRef } from "react";
 import axios from "axios";
 import { loginRoute } from "../utils/APIROutes";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+
+const notify = (msg) => toast.dark(msg);
 
 export default function Login() {
   const navigate = useNavigate();
@@ -19,8 +22,7 @@ export default function Login() {
         username,
         password,
       });
-      console.log(data);
-      if (data.status === false) console.log(data.msg);
+      if (data.status === false) notify(data.msg);
       if (data.status === true) {
         localStorage.setItem("chat-user", JSON.stringify(data.user));
         navigate("/");
@@ -28,7 +30,10 @@ export default function Login() {
     }
   };
   const handleValidation = ({ password, username }) => {
-    if (password.length < 7) return false;
+    if (password.length < 7) {
+      notify("Password should be at least 8 characters");
+      return false;
+    }
     if (username.length < 3) return false;
     return true;
   };

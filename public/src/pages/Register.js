@@ -4,6 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import axios from "axios";
 import { registerRoute } from "../utils/APIROutes";
+import { toast } from "react-toastify";
+
+const notify = (msg) => toast.dark(msg);
 
 export default function Register() {
   const navigate = useNavigate();
@@ -24,7 +27,7 @@ export default function Register() {
         password1,
       });
 
-      if (data.status === false) console.log(data.msg);
+      if (data.status === false) notify(data.msg);
       if (data.status === true) {
         localStorage.setItem("chat-user", JSON.stringify(data.user));
         navigate("/setAvatar");
@@ -32,8 +35,14 @@ export default function Register() {
     }
   };
   const handleValidation = ({ email, password1, password2, username }) => {
-    if (password1 !== password2) return false;
-    if (username.length < 7) return false;
+    if (username.length < 7) {
+      notify("Username should have at least 8 characters");
+      return false;
+    }
+    if (password1 !== password2) {
+      notify("Passwords are not the same");
+      return false;
+    }
     return true;
   };
   return (

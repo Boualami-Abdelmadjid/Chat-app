@@ -38,7 +38,6 @@ export default function SetAvatar() {
     const { data } = await axios.post(`${avatarRoute}/${user._id}`, {
       image: avatars[selectedAvatar],
     });
-    console.log(data);
     if (data.isSet) {
       localStorage.removeItem("chat-user");
       user.isAvatarImageSet = true;
